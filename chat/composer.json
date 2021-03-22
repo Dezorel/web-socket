@@ -1,0 +1,14 @@
+{
+  "name": "dezorel/chat",
+  "description": "This is test chat build and test composer",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dezorel"
+    }
+  ],
+  "require": {
+    "monolog/monolog": "1.0.*"
+  }
+}
