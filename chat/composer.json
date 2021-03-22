@@ -1,0 +1,14 @@
+{
+  "name": "desorel/chat",
+  "description": "This is test web-socket and test composer",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Desorel"
+    }
+  ],
+  "require": {
+    "monolog/monolog": "1.0.*"
+  }
+}
