@@ -6,7 +6,17 @@
 </head>
 <style>
     .unit{
-        position: relative;
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 100%;
+        background-color: green;
+        border: 3px solid black;
+        top: 0px;
+        left: 0px;
+    }
+    .me{
+        position: absolute;
         width: 60px;
         height: 60px;
         border-radius: 100%;
@@ -19,7 +29,11 @@
 <body id="wrapper">
 
     <div class="unit" id="unit">
+        <p align="center">It is my bro</p>
+    </div>
 
+    <div class="me" id="me">
+        <p align="center">It is me</p>
     </div>
 
     <script src="app.js"></script>

@@ -1,28 +1,37 @@
 const bodyElement = document.getElementById('wrapper')
 const unit = document.getElementById('unit')
-unit.style.backgroundColor = Math.random() < 0.5 ? 'red' : 'green'
+const me = document.getElementById('me')
+
+unit.style.backgroundColor = Math.random() < 0.5 ? 'red' : 'red'
+me.style.backgroundColor = Math.random() < 0.5 ? 'green' : 'green'
 // Открываем websocket соединение
 
 const ws = new WebSocket('ws://localhost:2346')
 
-bodyElement.addEventListener('keyup', event=>{
-    let top = unit.style.top ? unit.style.top : 0
-    let left = unit.style.left ? unit.style.left : 0
+bodyElement.addEventListener('keydown', event=>{
+    let top = me.style.top ? me.style.top : 0
+    let left = me.style.left ? me.style.left : 0
     const step = 7
 
     if(event.code == 'ArrowUp'){
-        unit.style.top = parseInt(top) - step + 'px'
+        me.style.top = parseInt(top) - step + 'px'
     }else if(event.code == 'ArrowDown'){
-        unit.style.top = parseInt(top) + step + 'px'
+        me.style.top = parseInt(top) + step + 'px'
     }else if(event.code == 'ArrowLeft'){
-        unit.style.left = parseInt(left) - step + 'px'
+        me.style.left = parseInt(left) - step + 'px'
     }else if(event.code == 'ArrowRight'){
-        unit.style.left = parseInt(left) + step + 'px'
+        me.style.left = parseInt(left) + step + 'px'
     }
 
     let positionData = {        //пересылаемый объект через вебсокет
-        top: unit.style.top,
-        left: unit.style.left
+      user1:{
+          top: unit.style.top,
+          left: unit.style.left
+      },
+      user2:{
+          top: me.style.top,
+          left: me.style.left
+      }
     }
     ws.send(JSON.stringify(positionData))       //отпарвлляем данные JSON
 })
@@ -31,9 +40,9 @@ bodyElement.addEventListener('keyup', event=>{
 
 ws.onmessage = response =>{
     let positionData = JSON.parse(response.data)
-    console.log(positionData)
-    unit.style.top = positionData.top
-    unit.style.left = positionData.left
+    unit.style.top = positionData.user2.top
+    unit.style.left = positionData.user2.left
+    console.log('get')
 }
 
 
