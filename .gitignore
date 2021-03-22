@@ -2,3 +2,4 @@
 *.iml
 *.xml
 /chat/vendor/
+/test-web-socket/vendor/

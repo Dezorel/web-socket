@@ -1,0 +1,14 @@
+{
+  "name": "vendor_name/test-web-socket",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Dezorel"
+    }
+  ],
+  "require": {
+    "monolog/monolog": "1.0.*"
+  }
+}
