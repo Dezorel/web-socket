@@ -3,3 +3,4 @@
 *.xml
 /chat/vendor/
 /test-web-socket/vendor/
+test-web-socket/app.log
