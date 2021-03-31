@@ -21,5 +21,3 @@ $wsWorker->onClose = function ($connection){
 };
 
 Worker::runAll();
-
-//php server\server.php         для запуска сервера
