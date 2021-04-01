@@ -1,6 +1,6 @@
 const inputs = document.getElementsByTagName('input')
-const AllMessages = document.getElementById('allMes')
-const mes = document.createElement('p')
+const AllMessages = document.getElementsByClassName('temp')
+const mes = document.createElement('div')
 const ws = new WebSocket('ws://localhost:2346')
 
 function SendMessage(){
@@ -22,7 +22,10 @@ function SendMessage(){
 
 ws.onmessage = response =>{
     let info = JSON.parse(response.data)
-    mes.textContent = info.messages.message
-    console.log(response.data)
+    //mes.textContent = info.messages.message
+    mes.innerHTML += '<p>'+ info.messages.message +'</p>'
+    const finalMes = document.getElementById('final')
+    let parent = finalMes.parentNode
+    parent.insertBefore(mes, finalMes)
 }
 
