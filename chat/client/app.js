@@ -2,7 +2,8 @@ const inputs = document.getElementsByTagName('input')
 const blockMes = document.createElement('div')
 const ws = new WebSocket('ws://localhost:2346')
 
-let users
+let users = []
+let message = []
 
 function SendMessage(){
     const nameInput = inputs[0].value //name
@@ -10,13 +11,14 @@ function SendMessage(){
     let info = {
         users:{
             count: 1,
-            nameUsers:[users]
+            nameUsers: users
         },
         messages:{
-            message: messageInput
+            message: message
         }
     }
     info.users.nameUsers.push(nameInput)
+    info.messages.message.push(messageInput)
     ws.send(JSON.stringify(info))
     inputs[0].value = ''
     inputs[1].value = ''
@@ -32,5 +34,6 @@ ws.onmessage = response =>{
         parent.insertBefore(blockMes, finalMes)
     }
     users = info.users.nameUsers
+    message = info.messages.message
 }
 
