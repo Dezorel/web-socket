@@ -26,7 +26,7 @@ ws.onmessage = response =>{
     let info = JSON.parse(response.data)
 
     console.log(info)
-    for(let i=0; i<info.messages.message.length; i++){
+    for(let i=info.messages.message.length-1; i<info.messages.message.length; i++){
         const blockMes = document.createElement('div')
         blockMes.classList.add('message')
         blockMes.innerHTML = '<p>'+ info.users.nameUsers[i] +': '+info.messages.message[i] +'</p>'
