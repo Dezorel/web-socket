@@ -16,11 +16,13 @@ function SendMessage(){
             message: message
         }
     }
-    info.users.nameUsers.push(nameInput)
-    info.messages.message.push(messageInput)
-    ws.send(JSON.stringify(info))
-    inputs[0].value = ''
-    textArea[0].value = ''
+   if(nameInput && messageInput){
+       info.users.nameUsers.push(nameInput)
+       info.messages.message.push(messageInput)
+       ws.send(JSON.stringify(info))
+       inputs[0].value = ''
+       textArea[0].value = ''
+   }
 }
 
 ws.onmessage = response =>{
@@ -30,7 +32,8 @@ ws.onmessage = response =>{
     for(let i=info.messages.message.length-1; i<info.messages.message.length; i++){
         const blockMes = document.createElement('div')
         blockMes.classList.add('message')
-        blockMes.innerHTML = '<p>'+ info.users.nameUsers[i] +': '+info.messages.message[i] +'</p>'
+        blockMes.classList.add('pt-2')
+        blockMes.innerHTML = '<p><strong>'+ info.users.nameUsers[i] +':</strong> '+info.messages.message[i] +'</p>'
         const finalMes = document.getElementById('final')
         let parent = finalMes.parentNode
         parent.insertBefore(blockMes, finalMes)
