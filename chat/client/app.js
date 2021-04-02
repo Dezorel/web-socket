@@ -1,11 +1,12 @@
 const inputs = document.getElementsByTagName('input')
+const textArea = document.getElementsByTagName('textarea')
 const ws = new WebSocket('ws://localhost:2346')
 let users = []
 let message = []
 
 function SendMessage(){
     const nameInput = inputs[0].value //name
-    const messageInput = inputs[1].value //message
+    const messageInput = textArea[0].value //message
     let info = {
         users:{
             count: 1,
@@ -19,7 +20,7 @@ function SendMessage(){
     info.messages.message.push(messageInput)
     ws.send(JSON.stringify(info))
     inputs[0].value = ''
-    inputs[1].value = ''
+    textArea[0].value = ''
 }
 
 ws.onmessage = response =>{
