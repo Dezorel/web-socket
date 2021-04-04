@@ -59,21 +59,43 @@
 
 //--------------------
 
-class MyClass{
-    const CONST_VALUE = "Какое-то значение \n";
-}
+//class MyClass{
+//    const CONST_VALUE = "Какое-то значение \n";
+//}
+//
+//class OtherClass extends MyClass{
+//    public static $my_static = 'статическая переменная';
+//
+//    public static function doubleColon(){
+//        echo parent::CONST_VALUE."\n";
+//        echo self::$my_static."\n";
+//    }
+//}
+//
+//$classname = 'MyClass';
+//
+//echo MyClass::CONST_VALUE;
+//
+//OtherClass::doubleColon();
 
-class OtherClass extends MyClass{
-    public static $my_static = 'статическая переменная';
 
-    public static function doubleColon(){
-        echo parent::CONST_VALUE."\n";
-        echo self::$my_static."\n";
+//----------------------------
+
+
+abstract class MyAbstarctClass{
+    abstract protected function getValue();
+    public function printOut(){
+        print $this->getValue();
     }
 }
 
-$classname = 'MyClass';
+class TempClass extends MyAbstarctClass{
 
-echo MyClass::CONST_VALUE;
+    protected function getValue()
+    {
+       return "Это какое-то значение";
+    }
+}
 
-OtherClass::doubleColon();
+$classTemp = new TempClass();
+$classTemp->printOut();
