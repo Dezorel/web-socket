@@ -3,6 +3,13 @@ require "token.php";
 
 $url = "https://api.telegram.org/bot".TOKEN."/getUpdates";
 
-$response = json_encode(file_get_contents($url), JSON_OBJECT_AS_ARRAY);
+$response = json_decode(file_get_contents($url), JSON_OBJECT_AS_ARRAY);
 
-var_dump($response);
+if($response['ok']){
+    foreach ($response['result'] as $update) {
+        echo $update['message']['text'];
+        echo "<br>";
+    }
+}else{
+    echo 'not found';
+}
