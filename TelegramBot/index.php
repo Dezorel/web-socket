@@ -20,7 +20,7 @@ if(count($response['result'])> 0){
         JSON_OBJECT_AS_ARRAY
     );
 
-
+    var_dump($lastUpdatedID);
 
     if($response1['ok']){
         foreach ($response1['result'] as $update) {
@@ -32,7 +32,10 @@ if(count($response['result'])> 0){
     }
 
 }
-var_dump($lastUpdatedID);
+else{
+    echo '<h1 align="center">No unread messages</h1>';
+}
+
 
 
 
