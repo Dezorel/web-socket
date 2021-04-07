@@ -1,10 +1,11 @@
 <?php
 require "token.php";
 $urlSend = "https://api.telegram.org/bot".TOKEN."/sendMessage";
+$phrasesHi = ['Привет', 'Здравствуй!', 'Добро пожаловать Линуксоид', 'Я ждал тебя, мой подаван'];
 
 $params = [
     'chat_id'=>1534045363,
-    'text'=>'Привет я бот который любит линукс! :З'
+    'text'=>randomPhrase($phrasesHi)
 ];
 
 $urlSend = $urlSend . '?' . http_build_query($params);
@@ -20,4 +21,9 @@ if($response['ok']){
     }
 }else{
     echo 'not found';
+}
+
+function randomPhrase($phrases){
+    $num = rand(0, count($phrases)-1);
+    return $phrases[$num];
 }
