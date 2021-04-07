@@ -5,3 +5,4 @@
 /test-web-socket/vendor/
 test-web-socket/app.log
 /workerman-test/vendor/
+TelegramBot/token.php
