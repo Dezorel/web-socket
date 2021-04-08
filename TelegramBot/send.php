@@ -7,13 +7,29 @@ $usersPhrasesHi = ['Привет', 'привет', 'Здравствуй','зд�
 
 $phrasesAngry = ['Тебе здесь не рады!', 'Не правда! Линукс лучшая ОС всех времё и народов'];
 
-function sendHiMessage($chat_id, $userMessage){
-    global $phrasesHi;
-    global $usersPhrasesHi;
+function sendMessage($chat_id, $userMessage){
     global $phrasesAngry;
     global $urlSend;
+    $noHiCur = sayHi($chat_id, $userMessage);
+    if($noHiCur==0){
+        $params = [
+            'chat_id'=>$chat_id,
+            'text'=>'Это не приветсвие... Что же мне написать?!'
+        ];
+        $urlSend = $urlSend . '?' . http_build_query($params);
+        $response = json_decode(
+            file_get_contents($urlSend),
+            JSON_OBJECT_AS_ARRAY
+        );
+    }
 
-    $k = count($usersPhrasesHi);
+}
+
+function sayHi($chat_id, $userMessage){
+    global $phrasesHi;
+    global $usersPhrasesHi;
+    global $urlSend;
+    $noHi = count($usersPhrasesHi);
 
     foreach ($usersPhrasesHi as $usi){
         if(strnatcasecmp($userMessage, $usi)==0){
@@ -28,22 +44,11 @@ function sendHiMessage($chat_id, $userMessage){
             );
             break;
         }
-        $k--;
+        $noHi--;
     }
-
-    if($k==0){
-        $params = [
-            'chat_id'=>$chat_id,
-            'text'=>'Ты не здороваешься! Как некультурно...'
-        ];
-        $urlSend = $urlSend . '?' . http_build_query($params);
-        $response = json_decode(
-            file_get_contents($urlSend),
-            JSON_OBJECT_AS_ARRAY
-        );
-    }
-
+    return $noHi;
 }
+
 function randomPhrase($phrases){
     $num = rand(0, count($phrases)-1);
     return $phrases[$num];

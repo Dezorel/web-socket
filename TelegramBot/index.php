@@ -22,7 +22,7 @@ function getUpdates(){
     if(count($response['result'])> 0){
         $url1 = "https://api.telegram.org/bot".TOKEN."/getUpdates";
         $lastUpdatedID = getFirstUnviewMessage($response);
-        sendHiMessage($response['result'][0]['message']['chat']['id'], $response['result'][0]['message']['text']);
+        sendMessage($response['result'][0]['message']['chat']['id'], $response['result'][0]['message']['text']);
         $params = [
             'offset'=>$lastUpdatedID+1
         ];
