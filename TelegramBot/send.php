@@ -3,7 +3,7 @@
 
 $urlSend = "https://api.telegram.org/bot".TOKEN."/sendMessage";
 $phrasesHi = ['Привет', 'Здравствуй!', 'Добро пожаловать Линуксоид', 'Я ждал тебя, мой подаван', 'У меня припасено много банальных фраз'];
-$usersPhrasesHi = ['Привет', 'Здравствуй', 'Ку', 'Бонжур', 'hi'];
+$usersPhrasesHi = ['Привет', 'Здравствуй', 'Ку', 'Бонжур', 'Хай', 'Hello', 'Hi'];
 
 $phrasesAngry = ['Тебе здесь не рады!', 'Не правда! Линукс лучшая ОС всех времё и народов'];
 
@@ -13,8 +13,10 @@ function sendHiMessage($chat_id, $userMessage){
     global $phrasesAngry;
     global $urlSend;
 
+    $k = count($usersPhrasesHi);
+
     foreach ($usersPhrasesHi as $usi){
-        if(strcmp($userMessage, $usi)==0){
+        if(strnatcasecmp ($userMessage, $usi)==0){
             $params = [
                 'chat_id'=>$chat_id,
                 'text'=>randomPhrase($phrasesHi)
@@ -26,17 +28,20 @@ function sendHiMessage($chat_id, $userMessage){
             );
             break;
         }
+        $k--;
     }
 
-//    $params = [
-//        'chat_id'=>$chat_id,
-//        'text'=>'Ты не поздоровался!'
-//    ];
-//    $urlSend = $urlSend . '?' . http_build_query($params);
-//    $response = json_decode(
-//        file_get_contents($urlSend),
-//        JSON_OBJECT_AS_ARRAY
-//    );
+    if($k==0){
+        $params = [
+            'chat_id'=>$chat_id,
+            'text'=>'Ты не здороваешься! Как некультурно...'
+        ];
+        $urlSend = $urlSend . '?' . http_build_query($params);
+        $response = json_decode(
+            file_get_contents($urlSend),
+            JSON_OBJECT_AS_ARRAY
+        );
+    }
 
 }
 function randomPhrase($phrases){
