@@ -2,8 +2,8 @@
 
 
 $urlSend = "https://api.telegram.org/bot".TOKEN."/sendMessage";
-$phrasesHi = ['Привет', 'Здравствуй!', 'Добро пожаловать Линуксоид', 'Я ждал тебя, мой подаван', 'У меня припасено много банальных фраз'];
-$usersPhrasesHi = ['Привет', 'Здравствуй', 'Ку', 'Бонжур', 'Хай', 'Hello', 'Hi'];
+$phrasesHi = ['Привет', 'Здравствуй!', 'Добро пожаловать Линуксоид', 'Я ждал тебя, мой подаван', 'У меня припасено много банальных фраз для приветсвия'];
+$usersPhrasesHi = ['Привет', 'привет', 'Здравствуй','здравствуй', 'Ку', 'ку','Куку', 'куку', 'Бонжур','бонжур', 'Хай', 'хай', 'Hello','hello', 'Hi','hi'];
 
 $phrasesAngry = ['Тебе здесь не рады!', 'Не правда! Линукс лучшая ОС всех времё и народов'];
 
@@ -16,7 +16,7 @@ function sendHiMessage($chat_id, $userMessage){
     $k = count($usersPhrasesHi);
 
     foreach ($usersPhrasesHi as $usi){
-        if(strnatcasecmp ($userMessage, $usi)==0){
+        if(strnatcasecmp($userMessage, $usi)==0){
             $params = [
                 'chat_id'=>$chat_id,
                 'text'=>randomPhrase($phrasesHi)
