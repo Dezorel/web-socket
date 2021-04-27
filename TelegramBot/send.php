@@ -2,16 +2,7 @@
 
 
 $urlSend = "https://api.telegram.org/bot".TOKEN."/sendMessage";
-
-$phrasesHi = ['Привет', 'Здравствуй!', 'Добро пожаловать Линуксоид', 'Я ждал тебя, мой подаван', 'У меня припасено 
-много банальных фраз для приветсвия'];
-$usersPhrasesHi = ['привет', 'здравствуй', 'ку', 'куку','бонжур', 'хай', 'hello', 'hi'];
-
-$phrasesAngry = ['Тебе здесь не рады!', 'Не правда! Линукс лучшая ОС всех времё и народов'];
-$usersPhrasesAngry = ['linux говно', 'linux govno', 'linux sheet', 'я пользуюсь windows','линукс говно'
-];
-$notHiPhrase = ['А поздороваться?', 'Со мной никто не здоровается...', 'Причина востания машин: Отсутсвие приветсвия 
-пользователя', 'Не понимаю тебя', 'It\'s hard to understand you'];
+require ('phrases.php');
 
 function sendMessage($chat_id, $userMessage){
 
