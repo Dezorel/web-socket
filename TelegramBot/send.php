@@ -9,9 +9,9 @@ function sendMessage($chat_id, $userMessage){
     $NotHiPhrase = sayHi($chat_id, $userMessage);
     $NotAngryPhrase = Angry($chat_id, $userMessage);
     $NotHAYPhrase = HowAreYou($chat_id, $userMessage);
+    $NoMenu = Menu($chat_id, $userMessage);
 
-
-    if($NotHiPhrase==0 && $NotAngryPhrase==0 && $NotHAYPhrase == 0){
+    if($NotHiPhrase==0 && $NotAngryPhrase==0 && $NotHAYPhrase == 0 && $NoMenu == 0){
         noSayHi($chat_id);
     }
 }
@@ -72,6 +72,44 @@ function HowAreYou($chat_id, $userMessage): int
 }
 
 
+function Menu($chat_id, $userMessage): int
+{
+    global $urlSend;
+    $temp = 0;
+    $userMessage = mb_strtolower($userMessage);
+
+        if(strnatcasecmp($userMessage, 'меню')==0){
+
+            $params = [
+                'chat_id'=>$chat_id,
+                'text'=>'Ваше меню',
+                'reply_markup'=>json_encode(array('keyboard'=> [
+                    ['здравствуй','Как дела','🏛'],
+                    ['Кто ты', 'Something else']]))
+            ];
+            $urlSend = $urlSend . '?' . http_build_query($params);
+            $response = json_decode(
+                file_get_contents($urlSend),
+                JSON_OBJECT_AS_ARRAY
+            );
+            $temp = 1;
+        }
+        if(strnatcasecmp($userMessage, 'menu')==0){
+            $params = [
+                'chat_id'=>$chat_id,
+                'text'=>'Your menu',
+                'reply_markup'=>json_encode(array('keyboard'=> [['Hi','How are you','🏛'], ['OMG', 'Something else']]))
+            ];
+            $urlSend = $urlSend . '?' . http_build_query($params);
+            $response = json_decode(
+                file_get_contents($urlSend),
+                JSON_OBJECT_AS_ARRAY
+            );
+            $temp = 1;
+        }
+        return $temp;
+}
+
 function noSayHi($chat_id){
     global $notHiPhrase;
     sendRandomPhrase($chat_id, $notHiPhrase);
@@ -92,3 +130,16 @@ function sendRandomPhrase($chat_id, $phrases){
         JSON_OBJECT_AS_ARRAY
     );
 }
+function sendThisMessage($chat_id, $msg){
+    global $urlSend;
+    $params = [
+        'chat_id'=>$chat_id,
+        'text'=>$msg
+    ];
+    $urlSend = $urlSend . '?' . http_build_query($params);
+    $response = json_decode(
+        file_get_contents($urlSend),
+        JSON_OBJECT_AS_ARRAY
+    );
+}
+
