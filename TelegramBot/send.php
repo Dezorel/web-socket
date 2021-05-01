@@ -10,8 +10,9 @@ function sendMessage($chat_id, $userMessage){
     $NotAngryPhrase = Angry($chat_id, $userMessage);
     $NotHAYPhrase = HowAreYou($chat_id, $userMessage);
     $NoMenu = Menu($chat_id, $userMessage);
+    $NoWAY = WhoAreYou($chat_id, $userMessage);
 
-    if($NotHiPhrase==0 && $NotAngryPhrase==0 && $NotHAYPhrase == 0 && $NoMenu == 0){
+    if($NotHiPhrase==0 && $NotAngryPhrase==0 && $NotHAYPhrase == 0 && $NoMenu == 0 && $NoWAY == 0){
         noSayHi($chat_id);
     }
 }
@@ -71,7 +72,6 @@ function HowAreYou($chat_id, $userMessage): int
     return $countOfPhrase;
 }
 
-
 function Menu($chat_id, $userMessage): int
 {
     global $urlSend;
@@ -84,7 +84,7 @@ function Menu($chat_id, $userMessage): int
                 'chat_id'=>$chat_id,
                 'text'=>'Ваше меню',
                 'reply_markup'=>json_encode(array('keyboard'=> [
-                    ['здравствуй','Как дела','🏛'],
+                    ['здравствуй','Как дела','Викторина'],
                     ['Кто ты', 'Something else']]))
             ];
             $urlSend = $urlSend . '?' . http_build_query($params);
@@ -95,6 +95,24 @@ function Menu($chat_id, $userMessage): int
             $temp = 1;
         }
         return $temp;
+}
+
+function WhoAreYou($chat_id, $userMessage): int
+{
+    global $phrasesWhoAreYou;
+    global $userPhrasesWhoAreYou;
+
+    $userMessage = mb_strtolower($userMessage);
+    $countOfPhrase = count($userPhrasesWhoAreYou);
+
+    foreach ($userPhrasesWhoAreYou as $upway){
+        if(strnatcasecmp($userMessage, $upway)==0){
+            sendRandomPhrase($chat_id,$phrasesWhoAreYou);
+            break;
+        }
+        $countOfPhrase--;
+    }
+    return $countOfPhrase;
 }
 
 function noSayHi($chat_id){
