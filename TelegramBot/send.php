@@ -78,7 +78,7 @@ function Menu($chat_id, $userMessage): int
     $temp = 0;
     $userMessage = mb_strtolower($userMessage);
 
-        if(strnatcasecmp($userMessage, 'меню')==0){
+        if(strnatcasecmp($userMessage, '/menu')==0){
 
             $params = [
                 'chat_id'=>$chat_id,
@@ -86,19 +86,6 @@ function Menu($chat_id, $userMessage): int
                 'reply_markup'=>json_encode(array('keyboard'=> [
                     ['здравствуй','Как дела','🏛'],
                     ['Кто ты', 'Something else']]))
-            ];
-            $urlSend = $urlSend . '?' . http_build_query($params);
-            $response = json_decode(
-                file_get_contents($urlSend),
-                JSON_OBJECT_AS_ARRAY
-            );
-            $temp = 1;
-        }
-        if(strnatcasecmp($userMessage, 'menu')==0){
-            $params = [
-                'chat_id'=>$chat_id,
-                'text'=>'Your menu',
-                'reply_markup'=>json_encode(array('keyboard'=> [['Hi','How are you','🏛'], ['OMG', 'Something else']]))
             ];
             $urlSend = $urlSend . '?' . http_build_query($params);
             $response = json_decode(
